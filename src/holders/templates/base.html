@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/favicon.ico' %}"/>
+    <title>UDE {% block title %}{% endblock %}</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+    <!-- JQUERY UI -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+<form action="{% url 'set_language' %}" method="post" id="langForm">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ redirect_to }}">
+    <input type="hidden" name="language" id="langInput">
+</form>
+<div id="wrapper">
+    <nav>
+        {% block nav %}
+            {% include '_navbar.html' %}
+        {% endblock %}
+    </nav>
+    <header>
+        {% block header %}
+        {% endblock %}
+    </header>
+    <aside>
+        {% block aside %}
+        {% endblock %}
+    </aside>
+{% block grand_content %}
+    <main class="container mt-4" role="main">
+        {% block content %}
+        {% endblock %}
+    </main>
+{% endblock %}
+    <footer>
+        {% block footer %}
+            {% include '_footer.html' %}
+        {% endblock %}
+    </footer>
+</div>
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.ckeditor.com/4.4.4/standard/ckeditor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+<script>
+    $('#form-back-btn').click(function () {
+        window.history.back();
+    });
+</script>
+{% block js %}
+{% endblock %}
+</body>
+</html>

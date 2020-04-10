@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+{% endblock %}
+{% block content %}
+    <div class="row card">
+        <div class="col-md-12 text-center">
+            <div class="card mt-4 p-4 z-depth-0">
+                <h2 class=" ">
+                    {% block list_title %}
+                    {% endblock %}
+                </h2>
+                <p class="lead">
+                    {% block list_subtitle %}
+                    {% endblock %}
+                </p>
+            </div>
+            <div class="row d-flex justify-content-between">
+                <!--/col-->
+                <div class="col-md-9">
+                    {% block search %}
+                        <form action="" method="get">
+                            <div class="input-group mb-3">
+                                <input id="search" name="search" class="form-control form-control-lg"
+                                       type="text" placeholder="{% trans 'Search' %}" aria-label="{% trans 'Search' %}"
+                                       aria-describedby="basic-addon2" value="{{ request.GET.search }}" autocomplete="off">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary" type="submit">{% trans 'Search' %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    {% endblock %}
+                </div>
+            <div class="col-md-3">
+                {% block optn_btns %}
+                {% endblock %}
+            </div>
+            </div>
+            <div class="row">
+                <div class="table-responsive col-md-12 mt-4" id="table-container">
+                    {% block table %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="row">
+                {% if is_paginated %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="?page={{ page_obj.previous_page_number }}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">{% trans 'Previous' %}</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% for i in paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="active page-item"><a class="page-link"
+                                                                    href="#">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">{% trans 'Next' %}</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% block extra_content %}
+    {% endblock %}
+{% endblock %}

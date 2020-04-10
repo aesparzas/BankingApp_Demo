@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="container footer-clutch card" role="main">
+        <!--Intro-->
+        <div class="py-5">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2 class=" ">
+                        {% block form_title %}
+                        {% endblock %}
+                    </h2>
+                    <p class="lead mb-0">
+                        {% block form_subtitle %}
+                        {% endblock %}
+                    </p>
+                    <div class="row">
+                        <!--/col-->
+                        <div class="col-md-8 offset-md-2">
+                            <span class="anchor" id="formUserEdit"></span>
+                            <hr class="my-1">
+                            <!-- form user info -->
+                            <div class=" ">
+                                <!--
+                                <div class="card-header">
+                                    <h4 class="mb-0">
+                                        {% block card_header %}
+                                        {% endblock %}
+                                    </h4>
+                                </div>
+                                -->
+                                <div class="card-body">
+                                    {% block form %}
+                                    {% include '_form.html' %}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% block extra_content %}
+    {% endblock %}
+    </main>
+{% endblock %}

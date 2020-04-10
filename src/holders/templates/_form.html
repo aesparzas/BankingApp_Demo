@@ -1,0 +1,15 @@
+{% load staticfiles crispy_forms_tags %}
+
+<form id="form" METHOD="post" ACTION="" enctype="multipart/form-data" class="form" role="form" autocomplete="off">
+    {% csrf_token %}
+
+    {{ form|crispy }}
+    <hr>
+    <div class="form-group">
+        <label class="col-lg-3 col-form-label form-control-label"></label>
+        <div class="col-lg-12">
+            <a href="#" class="btn btn-danger" id="form-back-btn">Back</a>
+            <button type="submit" class="btn btn-primary" id="submit_btn">Save</button>
+        </div>
+    </div>
+</form>
