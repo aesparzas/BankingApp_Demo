@@ -1,7 +1,4 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-    <a class="navbar-brand" href="{% url 'webmin:index' %}">
-            <img src="{% static 'assets/brand.png' %}" height="30" class="d-inline-block align-top" alt="">
-    </a>
+<nav class="navbar navbar-expand-lg">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,36 +6,13 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Language
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {% get_current_language as CURRENT_LANG %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% get_language_info_list for LANGUAGES as languages %}
-                    {% for language in languages %}
-                        <button class="dropdown-item"
-                           onclick="changeLanguage('{{ language.code }}')">{% if language.code == CURRENT_LANG %}<i class="fa fa-check mr-2"></i> {% endif %}{{ language.name_local }}</button>
-                    {% endfor %}
-                </div>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'webmin:developers:list' %}" class="nav-link">Developers</a>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'webmin:tests:list' %}" class="nav-link">Tests</a>
-            </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a href="{% url 'webmin:succ' %}" class="nav-link">Welcome {{ user }}</a>
+                    <a href="{% url 'holders:account' user.holder.account %}" class="nav-link">Welcome {{ user }}</a>
                 </li>
-                {% if user.company %}
-                    <li class="nav-item">
-                        <a href="{% url 'webmin:reviewers:list' %}" class="nav-link">Reviewers</a>
+                <li class="nav-item">
+                    <a href="{% url 'holders:transactions:index' %}" class="nav-link">Transactions</a>
                     </li>
-                {% endif %}
                 <li class="nav-item">
                     <a href="{% url 'logout' %}" class="nav-link btn btn-sm btn-outline-danger">Logout</a>
                 </li>

@@ -11,7 +11,7 @@ class AccountHolderRequiredMixin(UserPassesTestMixin):
                 try:
                     kwargs_holder = Holder.objects.get(account=
                                                        self.kwargs['account'])
-                    return kwargs_holder == self.request.holder
+                    return kwargs_holder == self.request.user.holder
                 except:
                     return False
             return True

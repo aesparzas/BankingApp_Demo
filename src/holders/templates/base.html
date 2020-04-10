@@ -20,11 +20,6 @@
     {% endblock %}
 </head>
 <body>
-<form action="{% url 'set_language' %}" method="post" id="langForm">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{ redirect_to }}">
-    <input type="hidden" name="language" id="langInput">
-</form>
 <div id="wrapper">
     <nav>
         {% block nav %}

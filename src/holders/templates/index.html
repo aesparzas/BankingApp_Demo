@@ -2,8 +2,8 @@
 {% load i18n static %}
 {% block nav %}
 
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-        <a class="navbar-brand" href="{% url 'index' %}">
+    <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'holders:index' %}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
             <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
             <li class="nav-item">
-                <a href="{% url 'webmin:succ' %}" class="nav-link">Welcome {{ user }}</a>
+                <a href="{% url 'holders:account' user.holder.account %}" class="nav-link">Welcome {{ user }}</a>
             </li>
             <li class="nav-item">
                 <a href="{% url 'logout' %}" class="nav-link btn btn-sm btn-outline-danger">Logout</a>
@@ -28,21 +28,20 @@
         </div>
     </nav>
 {% endblock %}
-{% block grand_content %}
+{% block content %}
 
-    <!-- Header -->
-    <header class="">
-        <div class="container d-flex h-100 align-items-center">
-            <div class="mx-auto text-center">
+        <div class="container m-4">
+            <div class=" card mx-auto text-center">
+            <div class="card-body">
                 <h1 class="mx-auto my-0 text-uppercase">BA</h1>
                 <h2 class="mx-auto mt-2 mb-5">The banking app</h2>
                 {% if user.is_authenticated and user.holder %}
-                <a href="{% url 'holders:register' %}" class="btn btn-primary">Get Started</a>
+                <a href="{% url 'holders:account' user.holder.account %}" class="btn btn-primary">Go to panel</a>
                 {% else %}
-                <a href="{% url 'holders:account' %}" class="btn btn-primary">Go to panel</a>
+                <a href="{% url 'holders:register' %}" class="btn btn-primary">Get Started</a>
                 {% endif %}
             </div>
+            </div>
         </div>
-    </header>
 
 {% endblock %}

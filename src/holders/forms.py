@@ -39,7 +39,7 @@ class HolderCreateForm(forms.ModelForm):
                                    email=self.cleaned_data['email'],
                                    first_name=self.cleaned_data['first_name'],
                                    last_name=self.cleaned_data['last_name'],)
-        user.set_password(self.cleaned_data['email'])
+        user.set_password(self.cleaned_data['password_1'])
         user.save()
 
         self.instance.user = user
