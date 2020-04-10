@@ -1,0 +1,32 @@
+{% extends 'list_base.html' %}
+{% block list_title %}
+Transactions
+{% endblock %}
+{% block table %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Timestamp</th>
+            <th>Creator</th>
+            <th>Receiver</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in transactions %}
+            <tr>
+            <td>{{ t.amount }}</td>
+            <td>{{ t.created_ts }}</td>
+            <td>{{ t.holder.full_name|default:'-' }}</td>
+            <td>{{ t.receiver.full_name|default:'-' }}</td>
+            <td>{{ t.description }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+            <td colspan="5" class="text-center">No transactions to show</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

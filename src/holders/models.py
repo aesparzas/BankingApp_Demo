@@ -2,6 +2,8 @@ from decimal import Decimal
 
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models import Sum, Q
+
 from app.models import PersonUserModel, BaseModel
 
 
@@ -21,15 +23,32 @@ class Holder(BaseModel, PersonUserModel):
         self.balance = self.transactions_received - self.transactions_made
         self.save()
 
+    def transaction_count(self):
+        return (self.transactions_received.count() +
+                self.transactions_made.count())
+
     def create_account_number(self):
         import random
         import string
         return ''.join(random.choices(string.digits, k=8))
 
+    def incomes(self):
+        return self.transactions_received\
+            .aggregate(Sum('amount'))['amount__sum']
+
+    def outcomes(self):
+        return self.transactions_received\
+            .aggregate(Sum('amount'))['amount__sum']
+
     def save(self, *args, **kwargs):
         if not self.account:
             self.account = self.create_account_number()
         super().save()
+
+    @property
+    def transactions(self):
+        return Transaction.objects.filter(Q(holder=self) |
+                                          Q(receiver=self))
 
 
 class Transaction(BaseModel):
@@ -49,7 +68,7 @@ class Transaction(BaseModel):
                                  max_digits=16,
                                  decimal_places=2,
                                  validators=[no_negatives])
-    reciever = models.ForeignKey(Holder,
+    receiver = models.ForeignKey(Holder,
                                  verbose_name='Accuont Holder',
                                  on_delete=models.PROTECT,
                                  related_name='transactions_received',

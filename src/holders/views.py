@@ -10,7 +10,7 @@ class IndexView(TemplateView):
 
 
 class AccountView(AccountHolderRequiredMixin, TemplateView):
-    template_name = ''
+    template_name = 'account.html'
 
 
 class RegisterView(CreateView):

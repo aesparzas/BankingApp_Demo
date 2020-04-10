@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="jumbotron">
+<h1 class="text-center">Transactions</h1>
+</div>
+    <div class="row m-2">
+    <div class="card">
+        <div class="card-body">
+            {% with user.holder as holder %}
+            <ul>
+                <li>User created: <strong>{{ holder.created_ts }}</strong></li>
+                <li>Account number: <strong>{{ holder.account }}</strong></li>
+                <li>Balance: <strong>$ {{ holder.balance }}</strong></li>
+                <li>Transaction count: <strong>{{ holder.transaction_count }}</strong></li>
+                <li>Money Incomes: <strong>$ {{ holder.incomes|default:'-' }}</strong></li>
+                <li>Incomes Count: <strong>{{ holder.transactions_received.count }}</strong></li>
+                <li>Money Outcomes: <strong>$ {{ holder.outcomes|default:'-' }}</strong></li>
+                <li>Outcomes Count: <strong>{{ holder.transactions_made.count }}</strong></li>
+            </ul>
+            {% endwith %}
+        </div>
+    </div>
+    </div>
+    <div class="row">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Timestamp</th>
+            <th>Creator</th>
+            <th>Receiver</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in transactions %}
+            <tr>
+            <td>{{ t.amount }}</td>
+            <td>{{ t.created_ts }}</td>
+            <td>{{ t.holder.full_name|default:'-' }}</td>
+            <td>{{ t.receiver.full_name|default:'-' }}</td>
+            <td>{{ t.description }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+            <td colspan="5" class="text-center">No transactions to show</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{% url 'holders:transactions:list' user.holder.account %}" class="btn btn-primary bt-block">View all</a>
+        </div>
+    </div>
+    </table>
+    </div>
+{% endblock %}

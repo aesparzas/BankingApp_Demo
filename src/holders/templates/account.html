@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+<div class="card-body">
+    <div class="jumbotron m-2">
+        <h2 class="text-center">Account Summary</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12 m-2">
+            <div class="card">
+                <div class="card-body">
+                    {% with user.holder as holder %}
+                    <ul>
+                        <li>User created: <strong>{{ holder.created_ts }}</strong></li>
+                        <li>Account number: <strong>{{ holder.account }}</strong></li>
+                        <li>Balance: <strong>$ {{ holder.balance }}</strong></li>
+                        <li>Transaction count: <strong>{{ holder.transaction_count }}</strong></li>
+                    </ul>
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{% url 'holders:transactions:summary' user.holder.account %}">
+            <div class="card">
+                <div class="card-header">
+                    Transactions
+                </div>
+                <div class="text-center card-body">
+                    <i class="fas fa-wallet fa-10x"></i>
+                </div>
+            </div>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a href="{% url 'holders:transactions:create' user.holder.account %}">
+            <div class="card">
+                <div class="card-header">
+                    Transfer
+                </div>
+                <div class="text-center card-body">
+                    <div class="fas fa-money-bill fa-10x"></div>
+                </div>
+            </div>
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
