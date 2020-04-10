@@ -3,7 +3,7 @@
 <html lang="en" dir="ltr">
 <head>
     <link rel="shortcut icon" type="image/png" href="{% static 'assets/favicon.ico' %}"/>
-    <title>UDE {% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -16,6 +16,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
     <!-- JQUERY UI -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- shards -->
+    <link href="https://cdn.jsdelivr.net/npm/shards-ui@2.1.0/dist/css/shards.min.css" rel="stylesheet"/>
     {% block css %}
     {% endblock %}
 </head>

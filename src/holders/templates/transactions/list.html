@@ -2,6 +2,8 @@
 {% block list_title %}
 Transactions
 {% endblock %}
+{% block search %}
+{% endblock %}
 {% block table %}
     <table class="table table-striped">
         <thead>
@@ -14,7 +16,7 @@ Transactions
         </tr>
         </thead>
         <tbody>
-        {% for t in transactions %}
+        {% for t in object_list %}
             <tr>
             <td>{{ t.amount }}</td>
             <td>{{ t.created_ts }}</td>
